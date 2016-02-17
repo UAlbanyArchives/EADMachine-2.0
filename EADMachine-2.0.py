@@ -317,6 +317,8 @@ class MachineFrame(gui.mainFrame):
 				dateRevision.text = self.Display_Date(revision["date"])
 				dateRevision.set("normal", revision["date"])
 				itemRevision.text = revision["event"]
+			if len(self.revisionReference) < 1:
+				FA.find("eadheader").remove(FA.find("eadheader/revisiondesc"))
 			
 			FA.find("frontmatter/titlepage/titleproper").text = collectionTitle
 			FA.find("frontmatter/titlepage/titleproper/date").text = self.Display_Date(normalDate)
@@ -392,8 +394,7 @@ class MachineFrame(gui.mainFrame):
 				acqDate.set("normal", self.acquisitionDate.GetValue())
 			acq.text = self.acquisition.GetValue()
 			
-			bioHead = ET.SubElement(FA.find("archdesc/bioghist"), "head")
-			bioHead.text = self.historicalLabel.GetValue()
+			FA.find("archdesc/bioghist/head").text = self.historicalLabel.GetValue()
 			if self.historicalNote.GetValue().startswith("<p>"):
 				FA.find("archdesc/bioghist/head").tail = self.historicalNote.GetValue().strip()
 			else:
@@ -479,6 +480,9 @@ class MachineFrame(gui.mainFrame):
 			if len(self.seriesReference) > 0:
 				dsc = ET.Element("dsc")
 				FA.find("archdesc").append(dsc)
+				dscHead = ET.Element("head")
+				dscHead.text = "Container List"
+				dsc.insert(0, dscHead)
 				seriesSorted = sorted(self.seriesReference, key=itemgetter('number'))
 				seriesCount = 1
 				for series in seriesSorted:
@@ -503,21 +507,21 @@ class MachineFrame(gui.mainFrame):
 						extent.text = series["extent"]
 						extent.set("unit", series["unit"])
 					if len(series["access"]) > 0:
-						accessElement = ET.SubElement(did, "accessrestrict")
+						accessElement = ET.SubElement(c01, "accessrestrict")
 						if series["access"].startswith("<p>"):
 							accessElement.text = series["access"].strip()
 						else:
 							accessP = ET.SubElement(accessElement, "p")
 							accessP.text = series["access"].strip()
 					if len(series["scope"]) > 0:
-						scopeElement = ET.SubElement(did, "scopecontent")
+						scopeElement = ET.SubElement(c01, "scopecontent")
 						if series["scope"].startswith("<p>"):
 							scopeElement.text = series["scope"].strip()
 						else:
 							scopeP = ET.SubElement(scopeElement, "p")
 							scopeP.text = series["scope"].strip()
 					if len(series["arrange"]) > 0:
-						arrangeElement = ET.SubElement(did, "arrangement")
+						arrangeElement = ET.SubElement(c01, "arrangement")
 						if series["arrange"].startswith("<p>"):
 							arrangeElement.text = series["arrange"].strip()
 						else:
