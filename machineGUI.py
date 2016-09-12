@@ -20,8 +20,15 @@ from resource_path import resource_path
 class mainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = "EADMachine 2.0", pos = wx.DefaultPosition, size = wx.Size( 1200,850 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+	
+		screenSize = wx.DisplaySize()
+		screenWidth = screenSize[0] * 0.85
+		screenHeight = screenSize[1] * 0.95
+	
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = "EADMachine 2.0", pos = wx.DefaultPosition, size = wx.Size( screenWidth, screenHeight ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		panel = wx.Panel(self)
+		#panel = wx.ScrolledWindow(self, -1)
+		#panel.SetScrollbars(1, 1, screenWidth, screenHeight)
 		
 		favicon = wx.Icon(resource_path('resources/em.gif'), wx.BITMAP_TYPE_GIF, 16, 16)
 		self.SetIcon(favicon)
@@ -57,7 +64,9 @@ class mainFrame ( wx.Frame ):
 		bSizer2 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.page2 = wx.Notebook( panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.page1 = wx.Panel( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		#self.page1 = wx.Panel( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.page1 = wx.ScrolledWindow( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.page1.SetScrollRate( 5, 5 )
 		bSizer5 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer7 = wx.BoxSizer( wx.VERTICAL )
@@ -251,7 +260,7 @@ class mainFrame ( wx.Frame ):
 		gSizer3.Add( self.revisionList, 0, wx.ALL, 5 )
 		
 		
-		bSizer8.Add( gSizer3, 1, wx.EXPAND, 5 )
+		bSizer8.Add( gSizer3, 0, 0, 0)
 		
 		self.m_staticline3 = wx.StaticLine( self.page1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
 		bSizer8.Add( self.m_staticline3, 0, wx.EXPAND |wx.ALL, 5 )
@@ -287,7 +296,7 @@ class mainFrame ( wx.Frame ):
 		
 		
 		
-		bSizer88.Add( gSizer11, 1, wx.EXPAND, 5 )
+		bSizer88.Add( gSizer11, 0, 0, 0 )
 		
 		self.m_staticline21 = wx.StaticLine( self.page1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
 		bSizer88.Add( self.m_staticline21, 0, wx.EXPAND |wx.ALL, 5 )		
@@ -295,7 +304,7 @@ class mainFrame ( wx.Frame ):
 		bSizer13.Add( bSizer8, 1, wx.EXPAND, 5 )
 		
 		
-		bSizer81.Add( bSizer13, 1, wx.EXPAND, 5 )
+		bSizer81.Add( bSizer13, 0, 0, 0 )
 		
 		bSizer16 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -305,7 +314,7 @@ class mainFrame ( wx.Frame ):
 		self.m_staticText25.Wrap( -1 )
 		self.m_staticText25.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 92, True, wx.EmptyString ) )
 		
-		bSizer88.Add( self.m_staticText25, 0, wx.ALL, 5 )
+		bSizer88.Add( self.m_staticText25, 0, 0, 0)
 		
 		gSizer9 = wx.FlexGridSizer( 2, 3, 0, 0 )
 		
@@ -341,8 +350,8 @@ class mainFrame ( wx.Frame ):
 		gSizer9.Add( self.creatorSource, 0, wx.ALL, 5 )
 		
 		
-		bSizer88.Add( gSizer9, 1, wx.EXPAND, 5 )
-		bSizer81.Add( bSizer88, 1, wx.EXPAND, 5 )
+		bSizer88.Add( gSizer9, 0, 0, 0 )
+		bSizer81.Add( bSizer88, 0, 0, 0 )
 		
 		self.m_staticline2 = wx.StaticLine( self.page1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
 		bSizer4.Add( self.m_staticline2, 0, wx.EXPAND |wx.ALL, 5 )
@@ -500,7 +509,9 @@ class mainFrame ( wx.Frame ):
 		self.page1.Layout()
 		bSizer5.Fit( self.page1 )
 		self.page2.AddPage( self.page1, u"Collection Information", True )
-		self.m_panel5 = wx.Panel( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		#self.m_panel5 = wx.Panel( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_panel5 = wx.ScrolledWindow( self.page2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_panel5.SetScrollRate( 5, 5 )
 		bSizer12 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer131 = wx.BoxSizer( wx.VERTICAL )
@@ -644,7 +655,7 @@ class mainFrame ( wx.Frame ):
 		bSizer14.Add( self.addSeries, 0, wx.ALL, 5 )
 		
 		
-		bSizer12.Add( bSizer14, 1, wx.EXPAND, 5 )
+		bSizer12.Add( bSizer14, 0,0,0 )
 		
 		
 		self.m_panel5.SetSizer( bSizer12 )

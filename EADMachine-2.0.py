@@ -190,6 +190,8 @@ class MachineFrame(gui.mainFrame):
 		if len(self.processedBy.GetValue()) < 1:
 			issueCount = issueCount + 1
 			issueString = issueString + "\nProccessed By is empty."
+		elif self.processedBy.GetValue().lower() == "unprocessed":
+			pass
 		elif self.Check_Normal(self.processingDate.GetValue()) is False:
 			issueCount = issueCount + 1
 			issueString = issueString + "\nProcessing Date is not a valid normal date."
@@ -305,8 +307,8 @@ class MachineFrame(gui.mainFrame):
 				spon = ET.Element("sponsor")
 				spon.text = self.sponsor.GetValue()
 				FA.find("eadheader/filedesc/titlestmt").append(spon)
-			FA.find("eadheader/filedesc/publicationstmt/date").text = "Copyright " + self.publishedYear.GetValue() + " By the University at Albany, SUNY. All rights reserved."
-			FA.find("eadheader/filedesc/publicationstmt/date").set("normal", self.publishedYear.GetValue())
+			FA.find("eadheader/filedesc/publicationstmt/date").text = "Copyright " + self.Display_Date(self.processingDate.GetValue()) + " By the University at Albany, SUNY. All rights reserved."
+			FA.find("eadheader/filedesc/publicationstmt/date").set("normal", self.processingDate.GetValue())
 			FA.find("eadheader/profiledesc/creation").text = self.faAuthor.GetValue()
 			FA.find("eadheader/profiledesc/creation/date").text = self.Display_Date(self.faDate.GetValue())
 			FA.find("eadheader/profiledesc/creation/date").set("normal", self.faDate.GetValue())
